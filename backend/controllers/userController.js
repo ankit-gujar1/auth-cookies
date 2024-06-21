@@ -26,7 +26,7 @@ export const signup = async (req, res) => {
         });
 
         if (newUser) {
-            generateTokenAndSetCookies(newUser._id,res);
+            generateTokenAndSetCookies(newUser._id, res);
             await newUser.save();
             res.status(201).json({
                 _id: newUser._id,
@@ -54,7 +54,7 @@ export const login = async (req, res) => {
         const isMatch = await bcrypt.compare(password, user.password);
         if (!isMatch) return res.status(400).json({ msg: "Incorrect password" });
 
-        generateTokenAndSetCookies(user._id,res);
+        generateTokenAndSetCookies(user._id, res);
 
         res.status(201).json({
             _id: user._id,
@@ -62,5 +62,14 @@ export const login = async (req, res) => {
         })
     } catch (e) {
         res.status(500).json({ error: e.message });
+    }
+}
+
+export const logout = async (req, res) => {
+    try {
+        res.cookie("jwt", "", { maxAge: 0 });
+        res.status(200).json({ msg: "Logged out successfully" });
+    } catch (err) {
+        res.status(500).json({ error: err.message });
     }
 }

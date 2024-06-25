@@ -30,7 +30,8 @@ export const signup = async (req, res) => {
             await newUser.save();
             res.status(201).json({
                 _id: newUser._id,
-                username: newUser.username
+                username: newUser.username,
+                role: newUser.role
             })
         }
         else {
@@ -58,7 +59,8 @@ export const login = async (req, res) => {
 
         res.status(201).json({
             _id: user._id,
-            username: user.username
+            username: user.username,
+            role: user.role
         })
     } catch (e) {
         res.status(500).json({ error: e.message });

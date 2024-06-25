@@ -5,6 +5,7 @@ import cookieParser from "cookie-parser";
 import cors from 'cors'
 
 import userRoutes from "./routes/userRoutes.js"
+import testRoutes from "./routes/testRoutes.js"
 
 dotenv.config();
 
@@ -22,6 +23,7 @@ app.use(express.json());
 app.use(cookieParser());
 
 app.use(userRoutes);
+app.use(testRoutes);
 
 mongoose.connect(process.env.MONGO_URI)
 .then(()=>{
